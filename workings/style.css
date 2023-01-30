@@ -1,0 +1,83 @@
+:root{
+    /* Theme */
+    --clrl-vlight:#d9f0ffff;
+    --clr-light:#a3d5ffff;
+    --clr-medium:#83c9f4ff;
+    --clr-dark:#6f73d2ff;
+    --clr-darkest: #4b5dad;
+    --clr-contrast:#cb904dff;
+    --clr-redact:#75485eff;
+    --clr-today:#fcfc62ff;
+
+    background-color: var(--clr-light);
+    color: var(--clr-dark);
+    
+    /* Signals */
+    --clr-outOfTime:#d5d1dcff;
+    --clr-completeSucces:#dafcdfff;
+    --clr-toCome:#2b8c6aff;
+    --clr-warning:#ffc914ff;
+    --clr-attention:#f7a1c4ff;
+    --clr-overdur:#ba262bff;
+
+    /* Fonts */
+    font-size: 28px;
+  
+
+    --fnt-subheadings: 'Alex Brush', cursive;
+    --fnt-heading: 'Caveat', cursive;
+    --fnt-highlight: 'Aboreto', cursive;
+    --fnt-insert: 'Condiment', cursive;
+    --fnt-advert: 'Explora', cursive;
+    --fnt-date: 'Dosis', sans-serif;
+
+    box-sizing: border-box;
+}
+
+/* ? body>
+   ?     header> h1 
+   ?     main> h2
+   ?     footer >
+   ?       p>                footerRight
+   ?        img              footerImg
+   ?     script      */
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main{
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+header, footer{
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+h1{
+    font-family: var(--fnt-date);
+    text-align: center;
+    font-style: italic;
+}
+
+h2{
+    font-family: var(--fnt-highlight);
+    text-align: center;
+    margin: auto;
+}
+
+.footerRight{
+    text-align: right;
+    padding: 0px 20px;
+}
+
+.footerImg{
+    height: 100%;
+    width: 140px;
+}
