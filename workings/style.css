@@ -6,14 +6,14 @@
     --clr-dark:#6f73d2ff;
     --clr-darkest: #4b5dad;
     --clr-contrast:#cb904dff;
-    --clr-redact:#75485eff;
+    --clr-react:#75485eff;
     --clr-today:#fcfc62ff;
 
     background-color: var(--clr-light);
     color: var(--clr-dark);
     
     /* Signals */
-    --clr-outOfTime:#d5d1dcff;
+    --clr-outOfTime:#9e9e9f55;
     --clr-completeSucces:#dafcdfff;
     --clr-toCome:#2b8c6aff;
     --clr-warning:#ffc914ff;
@@ -22,6 +22,7 @@
 
     /* Fonts */
     font-size: 28px;
+    font-family: var(--fnt-insert);
   
 
     --fnt-subheadings: 'Alex Brush', cursive;
@@ -32,14 +33,17 @@
     --fnt-date: 'Dosis', sans-serif;
 
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 /* ? body>
    ?     header> h1 
-   ?     main> h2
-   ?     footer >
-   ?       p>                footerRight
-   ?        img              footerImg
+   ?     main>                 container>left>calendar>month
+   ?          img + h2 + img
+   ?     footer>
+   ?       p>                  footerRight
+   ?        img                footerImg
    ?     script      */
 
 body{
@@ -52,6 +56,8 @@ main{
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: auto;
+    align-items: center;
+    justify-content: center;
 }
 
 header, footer{
@@ -60,24 +66,302 @@ header, footer{
     flex-basis: auto;
 }
 
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
 h1{
     font-family: var(--fnt-date);
     text-align: center;
     font-style: italic;
+    font-weight: 150;
+    font-size: 0.85rem;
 }
 
 h2{
     font-family: var(--fnt-highlight);
     text-align: center;
     margin: auto;
+    font-size: 0.95rem;
+    font-weight: 250;
+}
+
+p{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: right;
 }
 
 .footerRight{
     text-align: right;
-    padding: 0px 20px;
+    padding: 0px -20px;
+    font-size: 2.5rem;
+    vertical-align: super;
 }
 
 .footerImg{
     height: 100%;
-    width: 140px;
+    width: 150px;
+}
+
+.calendar .month{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    padding: 0 50px;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.arrow{
+    border-radius: 8px;
+    margin: 10px 10px;
+}
+
+.calendar .month .prev,
+.calendar .month .next{
+    cursor: pointer;
+}
+
+.calendar .month .prev:hover,
+.calendar .month .next:hover{
+    border: var(--clr-contrast) 4px solid;
+   
+}
+
+.container{
+    position: relative;
+    width: 1200px;
+    min-height: 850px;
+    margin: 0 auto;
+    display: flex;
+    border-radius: 12px;
+    background-color: var(--clr-dark);
+    color: var(--clr-light);
+}
+
+.left{
+    width: 60%;
+    padding: 20px;
+}
+
+.calendar{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: var(--clr-darkest);
+    border-radius: 12px;
+    /* color: #fff; */
+}
+
+.calendar::before,
+.calendar::after{
+    content: "";
+    position: absolute;
+    top: 5.9%;
+    left: calc(100%);
+    width: 12px;
+    height: 97%;
+    border-radius: 0 5px 5px 0;
+    background-color: var(--clr-medium);
+    transform: translateY(-5%);
+}
+
+.calendar::before{
+    height: 94%;
+    left: calc(100% +24px);
+    background-color: var(--clr-light);
+    border-radius: 0 5px 5px 0;
+    transform: translateY(-4%);
+    width: 24px;
+}
+
+.calendar .weekdays{
+    width: 94%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-transform: capitalize;
+}
+
+.calendar .weekdays div{
+    width: 12.28%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar .days{
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 1rem;
+    font-weight: 300;
+    margin: 0 7px 20px;
+}
+
+.calendar .days .day{
+    width: 13.5%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: var(--clr-light) solid 1px;
+    color: var(--clr-light);
+}
+
+.calendar .day:not(.prev-day, .next-day):hover{
+    color: var(--clr-react);
+    background-color: var(--clr-contrast);
+}
+
+.calendar .days .prev-day, 
+.calendar .days .next-day{
+    color: var(--clr-outOfTime);
+}
+
+.calendar .days .today{
+    position: relative;
+    font-size: 1.4rem;
+    background-color: var(--clr-today);
+    color: var(--clr-darkest);
+}
+
+.calendar .days .today::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: center;
+    width: 95%;
+    height: 95%;
+    box-shadow: 0 0 10px 6px var(--clr-today);
+}
+
+.calendar .days .active{
+    font-size: 1.4rem;
+}
+
+.calendar .days .event{
+    position: relative;
+    font-size: 1.2rem;
+}
+
+.calendar .days .full{
+    position: relative;
+    font-size: 1rem;
+    color: var(--clr-outOfTime);
+}
+
+
+.calendar .days .event::after{
+    content: "";
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    width: 75%;
+    height: 6px;
+    border-radius: 30px;
+    transform: translateX(-50%);
+    background-color: var(--clr-today);
+}
+
+.calendar .event:hover::after{
+    background-color: var(--clr-medium);
+}
+
+.calendar .active .event::after{
+    background-color: var(--clr-medium);
+    bottom: 20%;
+}
+
+.calendar .active .event{
+    padding-bottom: 10px;
+}
+
+.calendar .goto-today{
+
+    border-radius: 12px;
+    width: 90%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25%;
+    padding: 0 20px;
+    color: var(--clr-medium);
+    margin: 2% 2% 2% 2%;
+}
+
+.calendar .goto-today .goto{
+    display: flex;
+   padding: 0 20px;
+    font-size: .4rem;
+    align-items: center;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--clr-medium);
+    gap: 20px;
+
+}
+
+.calendar .goto-today .goto input{
+    width: 100%;
+    height: 30px;
+    outline: none;
+    color: var(--clr-medium);
+    font-family: var(--fnt-heading);
+    padding: 10px 20px;
+    border: 1px solid var(--clr-medium);
+    font-size: 1.2rem;
+    border-radius: 12px;
+}
+
+.calendar .goto button{
+        
+    font-family: var(--fnt-heading);
+    padding: 10px 20px;
+    border: 1px solid var(--clr-medium);
+    font-size: 1.5rem;
+    border-radius: 12px;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--clr-medium);
+}
+
+.calendar .goto-today button:hover{
+    color: var(--clr-dark);
+    background-color: var(--clr-light);
+}
+
+.calendar .goto-today .goto button{
+    border: none;
+    /* border-left: 1px solid var(--clr-dark); */
+    border-radius: 0;
+}
+
+.calendar .goto-today .today-btn{
+    
+    font-family: var(--fnt-heading);
+    padding: 10px 20px;
+    border: 1px solid var(--clr-medium);
+    font-size: 1.5rem;
+    border-radius: 12px;
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--clr-medium);
 }
