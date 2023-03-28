@@ -50,6 +50,8 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    align-items: center;
+    justify-content: conter;
 }
 
 main{
@@ -79,6 +81,7 @@ h1{
     font-style: italic;
     font-weight: 150;
     font-size: 0.85rem;
+    padding: 0 50px 0;
 }
 
 h2{
@@ -105,7 +108,7 @@ p{
 
 .footerImg{
     height: 100%;
-    width: 150px;
+    width: 100px;
 }
 
 .calendar .month{
@@ -228,11 +231,13 @@ p{
 .calendar .day:not(.prev-day, .next-day):hover{
     color: var(--clr-react);
     background-color: var(--clr-contrast);
+
 }
 
 .calendar .days .prev-day, 
 .calendar .days .next-day{
     color: var(--clr-outOfTime);
+    
 }
 
 .calendar .days .today{
@@ -364,4 +369,12 @@ p{
     background-color: transparent;
     cursor: pointer;
     color: var(--clr-medium);
+}
+
+.calendar .month .date{
+    font-family: var(--fnt-highlight);
+    text-align: center;
+    margin: auto;
+    font-size: 0.95rem;
+    font-weight: 250;
 }
