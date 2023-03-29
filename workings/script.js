@@ -4,9 +4,11 @@ const calendar = document.querySelector('.calendar'),
   
   prev = document.querySelector('.prev'),
   next = document.querySelector('.next'),
+ 
   todayBtn = document.querySelector('.today-btn'),
   gotoBtn = document.querySelector('.goto-btn'),
   dateInput = document.querySelector('.date-input'),
+
   eventDay = document.querySelector('.event-day'),
   eventDate = document.querySelector('.event-date'),
   eventsContainer = document.querySelector('.events'),
@@ -127,3 +129,71 @@ function nextMonth(){
 //add eventlistener on prev and next
 prev.addEventListener('click', prevMonth);
 next.addEventListener('click', nextMonth);
+
+
+//add goto date and goto today functionality
+
+todayBtn.addEventListener('click', () => {
+  console.log('today input event listener activated L137');
+  today = new Date();
+  month = today.getMonth();
+  year = today.getFullYear();
+  initCalendar();
+});
+
+  dateInput.addEventListener("input", (e) => {
+    //only allow numbers remove anything else
+    console.log('date input event listener activated L145');
+    dateInput.value = dateInput.value.replace(/[^0-9/]/g, "");
+    if (dateInput.value.length == 2){
+        // add a slash if two numbers entered
+        dateInput.value += "/";
+    }
+    if (dateInput.value.length > 7){
+      //don't allow more than 7 characters
+      dateInput.value = dateInput.value.slice(0,7);
+    }
+    //if backspace is pressed
+    if(e.inputType == "deleteContentBackward"){
+      if (dateInput.value.length == 3){
+        dateInput.value = dateInput.value.slice(0,2);
+      }
+    }
+});
+
+gotoBtn.addEventListener('click', gotoDate);
+//   console.log('goto button event listener activated L166');
+
+function gotoDate(){
+  const dateArr = dateInput.value.split("/");
+  console.log(dateArr);
+  if(dateArr.length == 2){
+    if(dateArr[0] >0 && dateArr[0] < 13 && dateArr[1].length == 4){
+      month = dateArr[0] - 1;
+      year = dateArr[1];
+      initCalendar();
+      return;
+    }
+  }
+  alert("invalid date");
+}
+
+
+
+// function gotoDate(){
+//   console.log('goto input event listener activated L166');
+//   const dateArr = dateInput.value.split("/");
+//   //some data validation
+//   if(dateArr.length == 2){
+//     if(dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length == 4){
+//       month == dateArr[0] -1;
+//       year = dateArr[1];
+//       initCalendar();
+//       return;
+//     }
+//   }
+//   gotoBtn.addEventListener('click', gotoDate());
+//   //if invalid date
+//   alert("invalid date");
+// }
+
