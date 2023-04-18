@@ -31,6 +31,7 @@
     --fnt-insert: 'Condiment', cursive;
     --fnt-advert: 'Explora', cursive;
     --fnt-date: 'Dosis', sans-serif;
+    --fnt-buttons: 'Yaldevi', sans-serif;
 
     box-sizing: border-box;
     margin: 0;
@@ -39,13 +40,33 @@
 
 /* ? body>
    ?     header> h1 
-   ?     main>                 container>left>calendar>month
-   ?          img + h2 + img
-   ?     footer>
-   ?       p>                  footerRight
-   ?        img                footerImg
-   ?     script      */
+   ?     main> .container> .left + .right
+   ?       .left>.calendar>
+    ?           .month + .weekdays+ .days + .goto-today
+    ?      .month>
+    ?         img.arrow.prev + .date{empty} + img.arrow.next
+    ?      .weekdays>.dayName * 7
+    ?      .days {empty}
+    ?      .goto-today> .goto-today + button
+    ?           .goto> input + button.goto-btn  
+    ?            button.today-btn 
 
+   ?      .right>
+    ?      .today-date + .events{empty} + .add-event-wrapper
+    ?       .today-date>.event-day + .event-date
+
+    ?       .event-wrapper>.add-event-header + .add-event-body
+    ?       .add-event-header>.title + img.arrow.close
+    ?       .add-event-body>.add-event-input>input *2 +
+    ?                       .add-event-input-50>input * 2
+
+
+    ?     script delay   
+    ?     footer>{empty}
+    ?       */
+
+
+    /* ? HTML */
 body{
     display: flex;
     flex-direction: column;
@@ -99,6 +120,9 @@ p{
     justify-content: right;
 }
 
+
+/* ? Classes */
+
 .footerRight{
     text-align: right;
     padding: 0px -20px;
@@ -125,6 +149,10 @@ p{
     margin: 10px 10px;
 }
 
+.close{
+    margin-right: 1.5rem;
+}
+
 .calendar .month .prev,
 .calendar .month .next{
     cursor: pointer;
@@ -138,7 +166,7 @@ p{
 
 .container{
     position: relative;
-    width: 1200px;
+    width: 90%;
     min-height: 850px;
     margin: 0 auto;
     display: flex;
@@ -147,8 +175,9 @@ p{
     color: var(--clr-light);
 }
 
-.left{
-    width: 60%;
+
+.container .left{
+    width: 65%;
     padding: 20px;
 }
 
@@ -194,16 +223,17 @@ p{
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     text-transform: capitalize;
 }
 
 .calendar .weekdays div{
     width: 12.28%;
-    height: 100%;
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: var(--fnt-subheadings);
 }
 
 .calendar .days{
@@ -299,53 +329,56 @@ p{
 }
 
 .calendar .goto-today{
-
     border-radius: 12px;
     width: 90%;
-    height: 50px;
+    /* max-height: 1rem; */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 25%;
+    gap: 5%;
     padding: 0 20px;
     color: var(--clr-medium);
     margin: 2% 2% 2% 2%;
+    font-family: var(--fnt-buttons);
 }
 
 .calendar .goto-today .goto{
     display: flex;
-   padding: 0 20px;
+   padding: 5px 10px;
     font-size: .4rem;
     align-items: center;
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--clr-medium);
-    gap: 20px;
+    gap: 10px;
+    margin-bottom: 0.75rem;
 
 }
 
 .calendar .goto-today .goto input{
     width: 100%;
-    height: 30px;
+    max-height: 30px;
     outline: none;
     color: var(--clr-medium);
-    font-family: var(--fnt-heading);
+    font-family: var(--fnt-buttons);
     padding: 10px 20px;
     border: 1px solid var(--clr-medium);
-    font-size: 1.2rem;
+    font-size: 0.6rem;
     border-radius: 12px;
 }
 
 .calendar .goto button{
-        
-    font-family: var(--fnt-heading);
-    padding: 10px 20px;
+
+     
+    /* font-family: var(--fnt-buttons);
     border: 1px solid var(--clr-medium);
     font-size: 1.5rem;
     border-radius: 12px;
     background-color: transparent;
     cursor: pointer;
     color: var(--clr-medium);
+    margin-bottom: .75rem; */
+
 }
 
 .calendar .goto-today button:hover{
@@ -353,28 +386,420 @@ p{
     background-color: var(--clr-light);
 }
 
-.calendar .goto-today .goto button{
+.calendar .goto-today .goto-btn{
     border: none;
-    /* border-left: 1px solid var(--clr-dark); */
+   
     border-radius: 0;
+
 }
 
 .calendar .goto-today .today-btn{
+    padding: 1rem;
+    margin-bottom: .75rem;
+    /* font-family: var(--fnt-buttons);
+    text-transform: lowercase;
     
-    font-family: var(--fnt-heading);
-    padding: 10px 20px;
     border: 1px solid var(--clr-medium);
     font-size: 1.5rem;
     border-radius: 12px;
     background-color: transparent;
     cursor: pointer;
-    color: var(--clr-medium);
+   
+    color: var(--clr-medium); */
 }
 
 .calendar .month .date{
-    font-family: var(--fnt-highlight);
+    /* font-family: var(--fnt-highlight); */
     text-align: center;
     margin: auto;
     font-size: 0.95rem;
     font-weight: 250;
 }
+
+
+.container .right{
+    position: relative;
+    width: 45%;
+    min-height: 100%;
+    padding: 20px 0;
+}
+
+.right .today-date{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-wrap: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    padding-left: 70px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    font-family: var(--fnt-highlight);
+}
+
+.today-date{
+    display: flex;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--clr-light);
+    font: var(--fnt-highlight);
+    padding-right: 4rem;
+}
+
+.event-date{
+    display: flex;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--clr-light);
+    font: var(--fnt-highlight);
+    padding-right: 3rem;
+}
+
+.events{
+    width: 94%;
+    height: 100%;
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem;
+}
+
+.events .event{
+    align-items: center;
+    justify-content: center;
+   gap: 0.25rem;
+    margin: 0.5rem;
+    padding: 0 0.5rem; 
+    color: var(--clr-light);
+    cursor: pointer;
+    background: linear-gradient(90deg, transparent, var(--clr-darkest));
+    font-family: var(--fnt-highlight);
+    position: relative;
+    /* width: 100%; */
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+.events .event:nth-child(even){
+    background: transparent;
+}
+
+.events .event:hover{
+    background: linear-gradient(90deg, transparent, var(--clr-completeSucces));
+    color: var(--clr-react);
+    border: solid gold  2px;
+    border-radius: 10px;
+}
+
+.events .event .title{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    pointer-events: none;
+}
+
+.events .event .title .event-title{
+    /* font-size: 1rem; */
+    font-weight: 200;
+    margin-left: 20px;
+    width: clamp(30%, 50%, 75%);
+}
+
+.events .event .title h3{
+    font-size: 0.8rem;
+}
+
+.events .event:hover .title h3,
+.events .event:hover .event-time{
+    color: var(--clr-react);
+    font-size: 0.9rem;
+    overflow: visible;pointer-events: none;
+}
+
+.events .event .event-time{
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--clr-light);
+    margin-left: 15px;
+    pointer-events: none;
+}
+
+.event::after{
+    content: "X";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.3;
+    color: var(--clr-light);
+    transform: translateY(50%);
+}
+
+.event:hover::after{
+    display: flex;
+}
+
+
+.event-btn{
+    display: flex;
+    font-family: var(--fnt-buttons);
+    text-transform: lowercase;
+    padding: 5px 10px;
+    border: 1px solid var(--clr-medium);
+    font-size: 0.7rem;
+    border-radius: 12px;
+    background-color: transparent;
+    cursor: pointer;
+    margin-bottom: .2rem;
+    color: var(--clr-medium);
+}
+
+.event-btn:hover{
+    color: var(--clr-darkest);
+    background-color: var(--clr-medium);
+}
+
+.list-icon{
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    grid-area: icon;
+    align-items: center;
+    justify-content: center;
+}
+
+.events .title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 5px;
+    width: 100%;
+}
+
+.event-time{
+    font-size: 0.75rem;
+    font-family: var(--fnt-highlight);
+    width: clamp(15%, 20%, 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details:hover p{
+   color: linear-gradient(45deg, red 0 50%, blue 50% 100%);
+   
+}
+
+
+.add-event-wrapper{
+    position: absolute;
+    bottom:10px;
+    left:55%;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: var(--clr-darkest);
+    transform: translateX(-50%);
+    transition: max-height 0.5s;
+}
+
+.add-event-wrapper:active{
+    max-height: 350px;
+}
+
+.add-event-header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-right: 3rem;
+    color: var(--clr-light);
+    border-bottom: 1px solid var(--clr-dark);
+    font-family: var(--fnt-highlight);
+}
+
+.add-event-header .close{
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.add-event-header .close:hover{
+    color: var(--clr-contrast);
+}
+
+.add-event-header .title{
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.add-event-body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 5px;
+    padding: 0 20px;
+    font-family: var(--fnt-buttons);
+}
+
+.add-event-body .add-event-input{
+    width: 90%;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.add-event-body .add-event-input input,
+.add-event-body .add-event-input label{
+    width: 90%;
+    height: 90%;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid var(--clrl-vlight);
+    padding: 0;
+    font-family: var(--fnt-buttons);
+    font-size: 0.7rem;
+    font-weight: 200;
+    color: var(--clr-light);
+    background-color: var(--clr-darkest);
+}
+
+
+.add-event-body .add-event-input input .event-name{
+    color: gold;
+    text-transform: capitalize;
+}
+
+.add-event-body .add-event-input input::placeholder{
+color: var(--clrl-vlight);
+opacity: 0.5;
+border: none;
+cursor: none;
+}
+.add-event-body .add-event-input label{
+    display: flex;
+    border-bottom: none;
+    padding: 0;
+    opacity: 0.5;
+    width: 90%;
+    justify-content: right;
+}
+
+.add-event-body .add-event-input input::focus{
+    border-color: var(--clr-react);
+}
+
+.add-event-body .add-event-input input::focus::placeholder{
+    color: gold;
+    text-transform: capitalize;
+}
+
+.add-event-body .add-event-input-50{
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;    
+}
+
+.halfway{
+    display: flex;
+    flex-direction: row;
+    width: 88%;
+    gap: 1px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.halfway .add-event-input time:valid + span::after{
+    position: absolute;
+    content: "✓";
+    padding-left: 1px;
+    margin: 0;
+    color: var(--clr-warning);
+    z-index: 25;
+}
+.halfway .add-event-input time:required:invalid + span::after {
+    position: absolute;
+    /* content: "✖"; */
+    content: "✓";
+    color: var(--clr-completeSucces);
+    padding-left: 1px;
+    margin: 0;
+    color: var(--clr-attention);
+    z-index: 25;
+  }
+
+  .validity{
+    margin: 0;
+    /* color: var(--clr-warning); */
+    z-index: 25;
+  }
+
+.add-event-body .add-event-input input{
+    width: 150%;
+    height: 90%;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid var(--clrl-vlight);
+    padding: 0;
+    font-family: var(--fnt-buttons);
+    font-size: 0.7rem;
+    font-weight: 200;
+    color: var(--clr-light);
+    background-color: var(--clr-darkest);
+}
+
+.add-event-body .add-event-input-50 input .event-name{
+    color: gold;
+    text-transform: capitalize;
+}
+
+input:valid + span::after {
+    position: absolute;
+    content: "✓";
+    padding-left: 5px;
+  }
+
+.add-event-body .add-event-input-50 input::placeholder{
+color: var(--clrl-vlight);
+opacity: 0.5;
+}
+
+.add-event-body .add-event-input-50 input::focus{
+    border-color: var(--clr-react);
+}
+
+.add-event-body .add-event-input-50 input::focus::placeholder{
+    color: gold;
+    text-transform: capitalize;
+}
+
+.add-event-footer{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    margin: 0.5rem;
+    margin-bottom: 0.1rem;
+}
+

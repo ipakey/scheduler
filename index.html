@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Alex+Brush&family=Caveat&family=Condiment&family=Explora&display=swap+Dosis:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Yaldevi&display=swap" rel="stylesheet">
     <!-- css & favicon -->
     <link rel="stylesheet" href="./workings/style.css">
     <link rel="shortcut icon" href="./branding/favicon.ico" type="image/x-icon">
@@ -21,8 +22,7 @@
 </head>
 <body>
     <header>
-        
-        <div class="footerRight">
+        <div class="">
             <img class="footerImg" src="./images/rose_simplified.png" alt="Yfkes logo">
         </div>
         <h1>Calendar with ToDo List</h1>
@@ -50,12 +50,55 @@
                     <div class="goto-today">
                         <div class="goto">
                             <input type="text" class="date-input" placeholder="MM/YYYY" />
-                            <button class="goto-btn">go
+                            <button class=" event-btn goto-btn">go
                             </button>
                         </div>
-                        <button class="today-btn">today</button>
+                        <button class="event-btn today-btn">Go to today</button>
                     </div>
                 </div>
+            </div>
+            <div class="right">
+                <div class="today-date">
+                    <div class="event-day">Wed</div>
+                    <div class="event-date">29 March 2023</div>
+                </div>
+                <div class="events">
+                <!--! We will add events through js script -->
+                </div>
+                <div class="add-event-wrapper">
+                    <div class="add-event-header">
+                        <div class="title">Add Event</div>
+                        <img class="arrow close" src="./icons/taskGoldClock.png" alt="closetask arrow">
+                    </div>
+                    <div class="add-event-body">
+                        <div class="add-event-input">            
+                            <input type="text" class="event-name" placeholder="Event Name" required>
+                        </div>
+                        <div class="halfway">
+                            <div class="add-event-input">
+                                <label for="time-input-from">From:</label>
+                                <input type="time" id="time-input-from"  name="from-time" 
+                                step="600" class="event-time"  value="09:00" required>
+                                <span class="validity"></span>
+                            </div>
+                            <div class="add-event-input">
+                                <label for="time-input-to">To:</label>
+                               <input type="time" id="time-input-to" name="to-time" class="event-time" step="600" value="09:30" required pattern="[0-9]{2}:[0-9]{2}" />
+                               <span class="validity"></span>
+                            </div>
+                        </div>
+                        <div class="add-event-input">
+                            <input type="text" class="event-details" placeholder="Event Details">
+                        </div>
+
+                    </div>
+                    <div class="add-event-footer">
+                        <button class="event-btn add-btn">Add event</button>
+                        <button class="event-btn edit-btn">Edit event</button>
+                        <button class="event-btn close-btn">Close event</button>
+                    </div>
+                </div>  
+                <button class="event-btn" id="event-form" tooltip{Manage your events}="">Manage Events</button>            
             </div>
         </div>
     </main>

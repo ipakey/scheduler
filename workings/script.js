@@ -1,3 +1,7 @@
+// ! Create the calendar
+
+// ? variables 
+
 const calendar = document.querySelector('.calendar'),
   daysContainer = document.querySelector('.days'),
   date = document.querySelector('.date');
@@ -20,6 +24,7 @@ const calendar = document.querySelector('.calendar'),
   addEventTo = document.querySelector('.event-time-to'),
   addEventSubmit = document.querySelector('.add-event-btn ');
 
+  // ? check source data 
   console.log(  'variables:  ' + calendar + ' ' + date  + ' ' + daysContainer + ' ' + prev  + ' ' + next  + ' ' +todayBtn  + ' ' + gotoBtn  + ' ' + dateInput);
 
 let today = new Date();
@@ -42,10 +47,9 @@ const months = [
     'November',
     'December'
 ];
-// console.log(months + ' at L27'  + ' month: ' + month);
-date.innerHTML = months[month];
 
-//function to add days
+
+// ?function to add days
 
 function initCalendar(){
     // to get starting data for current month display
@@ -59,14 +63,14 @@ function initCalendar(){
        
         console.log( 'first day: ' + firstDay + ' last day: ' + lastDay + ' prev last day: ' + prevLastDay + ' prev days: ' + prevDays + 'last date: ' + lastDate + ' day: ' + day + ' next days: ' + nextDays);
 
-    // update date at top of calendar
+    // ? update date at top of calendar
     // console.log(date +' L58');
     date.innerHTML = months[month] + ' ' + year;
-    // console.log(date + ' L60');
+   
 
     let days = '';
 
-    //prev months days  
+    // ? prev months days  
     if(day == 0){
       let sunday = 6;
       for (let x = sunday; x > 0; x--) {
@@ -77,7 +81,8 @@ function initCalendar(){
       days += `<div class='day prev-day'>${prevDays - x + 2}</div>`;
     }
     // console.log( 'days L70: ' + days);
-    // current month days
+
+    // ? current month days
     for(let i=1;i<=lastDate; i++){
       //if day is today add class 'today'
       if( i == new Date().getDate() && 
@@ -85,27 +90,27 @@ function initCalendar(){
           month == new Date().getMonth()){
             days += `<div class='day today'>${i}</div>`;
       }
-      //add remaining days this month
+      // ? add remaining days this month
       else{
         days += `<div class='day'>${i}</div>`;
       }
     }
-          //add next month days
+          // ? add next month days
       if(nextDays < 7){
         for (let j=1; j < nextDays +1 ; j++){
           days += `<div class='day next-day'>${j}</div>`;
         }
       }
-   // console.log( 'days L70: ' + days);
+   // console.log( 'days L101: ' + days);
     daysContainer.innerHTML =  days;
-    // console.log( 'days container L72: ' + daysContainer.innerHTML);
-
 }
 
 initCalendar();
 
 
-//last month
+// ! button functionality
+
+// ? last month
 function prevMonth(){
   month--;
   if(month < 0){
@@ -115,7 +120,7 @@ function prevMonth(){
   initCalendar();
 }
 
-//next month
+// ? next month
 
 function nextMonth(){
   month++;
@@ -126,12 +131,12 @@ function nextMonth(){
   initCalendar();
 }
 
-//add eventlistener on prev and next
+// ? add eventlistener on prev and next
 prev.addEventListener('click', prevMonth);
 next.addEventListener('click', nextMonth);
 
 
-//add goto date and goto today functionality
+// ? add goto date and goto today functionality
 
 todayBtn.addEventListener('click', () => {
   console.log('today input event listener activated L137');
@@ -164,6 +169,10 @@ todayBtn.addEventListener('click', () => {
 gotoBtn.addEventListener('click', gotoDate);
 //   console.log('goto button event listener activated L166');
 
+gotoBtn.addEventListener('click',  );
+//   console.log('goto button event listener activated L166');
+
+
 function gotoDate(){
   const dateArr = dateInput.value.split("/");
   console.log(dateArr);
@@ -177,23 +186,4 @@ function gotoDate(){
   }
   alert("invalid date");
 }
-
-
-
-// function gotoDate(){
-//   console.log('goto input event listener activated L166');
-//   const dateArr = dateInput.value.split("/");
-//   //some data validation
-//   if(dateArr.length == 2){
-//     if(dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length == 4){
-//       month == dateArr[0] -1;
-//       year = dateArr[1];
-//       initCalendar();
-//       return;
-//     }
-//   }
-//   gotoBtn.addEventListener('click', gotoDate());
-//   //if invalid date
-//   alert("invalid date");
-// }
 
