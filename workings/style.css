@@ -13,7 +13,7 @@
     color: var(--clr-dark);
     
     /* Signals */
-    --clr-outOfTime:#9e9e9f55;
+    --clr-outOfTime:#d4b88c55;
     --clr-completeSucces:#dafcdfff;
     --clr-toCome:#2b8c6aff;
     --clr-warning:#ffc914ff;
@@ -123,6 +123,9 @@ p{
 
 /* ? Classes */
 
+
+/* ? Calendar headings */
+
 .footerRight{
     text-align: right;
     padding: 0px -20px;
@@ -175,7 +178,128 @@ p{
     color: var(--clr-light);
 }
 
+/* ? end of Calendar headings */
 
+
+/* ? Buttons in container  */
+
+.event-btn{
+    display: flex;
+    font-family: var(--fnt-buttons);
+    text-transform: lowercase;
+    padding: 0.5rem;
+    border: 1px solid var(--clr-medium);
+    font-size: 0.7rem;
+    border-radius: 12px;
+    background-color: transparent;
+    cursor: pointer;
+    margin-bottom: .75rem;
+    color: var(--clr-medium);
+}
+
+.event-btn:hover{
+    color: var(--clr-darkest);
+    background-color: var(--clr-medium);
+}
+
+/* ? Right pane buttons Calendar Navigation */
+
+.menu-buttons{
+    display: flex;
+    height: 2.5rem;
+    padding: 10px 10px;
+    /* border: 1px solid var(--clr-medium);
+    border-radius: 12px; */
+    background-color: transparent;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    color: var(--clr-medium);
+    justify-content: space-between;
+    position: absolute;
+}
+
+.manage-event{
+    position: absolute;
+    margin-bottom: .5rem;
+    margin-left: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.manage-task-btn{
+    
+    margin-bottom: .5rem;
+    margin-left: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+
+/* ? Left pane buttons Calendar Navigation */
+
+
+.calendar .goto-today .goto-btn{
+    display: flex;
+    background-color: transparent;
+    font-size: 0.7rem;
+    max-height: 30px;
+    outline: none;
+    color: var(--clr-medium);
+    font-family: var(--fnt-buttons);
+    border: none;
+    border-radius: 0;
+}
+
+.calendar .goto-today .today-btn{
+    padding: 0.5rem;
+    margin-bottom: .75rem;
+}
+
+.calendar .goto-today{
+    border-radius: 12px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5%;
+    padding: 1rem;
+    color: var(--clr-medium);
+    margin: 2% 2% 2% 2%;
+    font-family: var(--fnt-buttons);
+}
+
+.calendar .goto-today .goto{
+    display: flex;
+   padding: 5px 10px;
+    font-size: .7rem;
+    align-items: center;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--clr-medium);
+    gap: 10px;
+    margin-bottom: 0.75rem;
+}
+
+.calendar .goto-today .goto input{
+    width: 100%;
+    max-height: 30px;
+    outline: none;
+    color: var(--clr-medium);
+    font-family: var(--fnt-buttons);
+    padding: 10px 20px;
+    border: 1px solid var(--clr-medium);
+    font-size: 0.6rem;
+    border-radius: 12px;
+}
+
+/* ? end of Buttons in container  */
+
+/* ? Calendar Container */
 .container .left{
     width: 65%;
     padding: 20px;
@@ -256,12 +380,7 @@ p{
     cursor: pointer;
     border: var(--clr-light) solid 1px;
     color: var(--clr-light);
-}
-
-.calendar .day:not(.prev-day, .next-day):hover{
-    color: var(--clr-react);
-    background-color: var(--clr-contrast);
-
+    font-family: var(--fnt-heading);
 }
 
 .calendar .days .prev-day, 
@@ -273,8 +392,11 @@ p{
 .calendar .days .today{
     position: relative;
     font-size: 1.4rem;
-    background-color: var(--clr-today);
-    color: var(--clr-darkest);
+    background-color: var(--clr-light);
+    color: var(--clr-overdur);
+    box-shadow: 0 0 10px 6px var(--clr-today);
+    border: 2px solid var(--clr-overdur);
+    border-radius: 12px;
 }
 
 .calendar .days .today::before{
@@ -289,6 +411,17 @@ p{
 
 .calendar .days .active{
     font-size: 1.4rem;
+    box-shadow: 0 0 10px 6px var(--clr-today);
+    border-radius: 12px;
+    border: 2px solid var(--clr-today);
+}
+
+.calendar .day:not(.prev-day, .next-day):hover{
+    font-size: 1.4rem;
+    box-shadow: 0 0 10px 6px var(--clr-warning);
+    border-radius: 12px;
+    border: 2px solid var(--clr-warning);
+    opacity: 0.6;
 }
 
 .calendar .days .event{
@@ -328,94 +461,15 @@ p{
     padding-bottom: 10px;
 }
 
-.calendar .goto-today{
-    border-radius: 12px;
-    width: 90%;
-    /* max-height: 1rem; */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5%;
-    padding: 0 20px;
-    color: var(--clr-medium);
-    margin: 2% 2% 2% 2%;
-    font-family: var(--fnt-buttons);
-}
-
-.calendar .goto-today .goto{
-    display: flex;
-   padding: 5px 10px;
-    font-size: .4rem;
-    align-items: center;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--clr-medium);
-    gap: 10px;
-    margin-bottom: 0.75rem;
-
-}
-
-.calendar .goto-today .goto input{
-    width: 100%;
-    max-height: 30px;
-    outline: none;
-    color: var(--clr-medium);
-    font-family: var(--fnt-buttons);
-    padding: 10px 20px;
-    border: 1px solid var(--clr-medium);
-    font-size: 0.6rem;
-    border-radius: 12px;
-}
-
-.calendar .goto button{
-
-     
-    /* font-family: var(--fnt-buttons);
-    border: 1px solid var(--clr-medium);
-    font-size: 1.5rem;
-    border-radius: 12px;
-    background-color: transparent;
-    cursor: pointer;
-    color: var(--clr-medium);
-    margin-bottom: .75rem; */
-
-}
-
-.calendar .goto-today button:hover{
-    color: var(--clr-dark);
-    background-color: var(--clr-light);
-}
-
-.calendar .goto-today .goto-btn{
-    border: none;
-   
-    border-radius: 0;
-
-}
-
-.calendar .goto-today .today-btn{
-    padding: 1rem;
-    margin-bottom: .75rem;
-    /* font-family: var(--fnt-buttons);
-    text-transform: lowercase;
-    
-    border: 1px solid var(--clr-medium);
-    font-size: 1.5rem;
-    border-radius: 12px;
-    background-color: transparent;
-    cursor: pointer;
-   
-    color: var(--clr-medium); */
-}
-
 .calendar .month .date{
-    /* font-family: var(--fnt-highlight); */
+    font-family: var(--fnt-highlight);
     text-align: center;
     margin: auto;
     font-size: 0.95rem;
     font-weight: 250;
 }
 
+/* ? Events & Task Display Pane */
 
 .container .right{
     position: relative;
@@ -423,6 +477,9 @@ p{
     min-height: 100%;
     padding: 20px 0;
 }
+
+
+/*  ? Right Pane Header*/
 
 .right .today-date{
     width: 100%;
@@ -458,10 +515,13 @@ p{
     padding-right: 3rem;
 }
 
+
+/* ? Events List display */
+
 .events{
     width: 94%;
     height: 100%;
-    max-height: 600px;
+    max-height: 550px;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
@@ -531,7 +591,7 @@ p{
     pointer-events: none;
 }
 
-.event::after{
+.events .event::after{
     content: "X";
     position: absolute;
     top: 50%;
@@ -545,28 +605,8 @@ p{
     transform: translateY(50%);
 }
 
-.event:hover::after{
+.events .event:hover::after{
     display: flex;
-}
-
-
-.event-btn{
-    display: flex;
-    font-family: var(--fnt-buttons);
-    text-transform: lowercase;
-    padding: 5px 10px;
-    border: 1px solid var(--clr-medium);
-    font-size: 0.7rem;
-    border-radius: 12px;
-    background-color: transparent;
-    cursor: pointer;
-    margin-bottom: .2rem;
-    color: var(--clr-medium);
-}
-
-.event-btn:hover{
-    color: var(--clr-darkest);
-    background-color: var(--clr-medium);
 }
 
 .list-icon{
@@ -601,6 +641,8 @@ p{
    
 }
 
+/* ? Events Management Form */
+
 
 .add-event-wrapper{
     position: absolute;
@@ -615,8 +657,10 @@ p{
     transition: max-height 0.5s;
 }
 
-.add-event-wrapper:active{
+.add-event-wrapper.show{
     max-height: 350px;
+    bottom: 1.5rem;
+    z-index: 25;
 }
 
 .add-event-header{
@@ -801,5 +845,31 @@ opacity: 0.5;
     padding: 10px 20px;
     margin: 0.5rem;
     margin-bottom: 0.1rem;
+}
+
+/* ? end of Events Management Form */
+
+
+
+
+
+/* ? tooltips - don't work removed from html */
+
+.tooltip{
+    position: absolute;
+    display: none;
+    font-family: var(--fnt-subheadings);
+    font-size: 0.75rem;
+    right: 30px;
+    bottom: 3.5rem;
+}
+
+.tooltip-icon{
+    width: 0.75rem;
+    height: 0.75rem;
+}
+    
+.event-btn + .tooltip:hover{
+    display: block;
 }
 

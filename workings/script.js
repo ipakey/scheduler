@@ -2,30 +2,37 @@
 
 // ? variables 
 
-const calendar = document.querySelector('.calendar'),
-  daysContainer = document.querySelector('.days'),
-  date = document.querySelector('.date');
-  
-  prev = document.querySelector('.prev'),
-  next = document.querySelector('.next'),
- 
-  todayBtn = document.querySelector('.today-btn'),
-  gotoBtn = document.querySelector('.goto-btn'),
-  dateInput = document.querySelector('.date-input'),
+const calendar = document.querySelector(".calendar"),
+  date = document.querySelector(".date"),
+  daysContainer = document.querySelector(".days"),
 
-  eventDay = document.querySelector('.event-day'),
-  eventDate = document.querySelector('.event-date'),
-  eventsContainer = document.querySelector('.events'),
-  addEventBtn = document.querySelector('.add-event'),
-  addEventWrapper = document.querySelector('.add-event-wrapper'),
-  addEventCloseBtn = document.querySelector('.close'),
-  addEventTitle = document.querySelector('.event-name'),
-  addEventFrom = document.querySelector('.event-time-from '),
-  addEventTo = document.querySelector('.event-time-to'),
-  addEventSubmit = document.querySelector('.add-event-btn ');
+  prev = document.querySelector(".prev"),
+  next = document.querySelector(".next"),
+
+  todayBtn = document.querySelector(".today-btn"),
+  gotoBtn = document.querySelector(".goto-btn"),
+  dateInput = document.querySelector(".date-input"),
+
+  eventDay = document.querySelector(".event-day"),
+  eventDate = document.querySelector(".event-date"),
+  eventsContainer = document.querySelector(".events");
+
+  addEventBtn = document.querySelector(".manage-events-btn ");
+  addEventCloseBtn = document.querySelector(".close-event-btn");
+  addEventWrapper = document.querySelector(".add-event-wrapper");
+
+  addEventTitle = document.querySelector("#event-name");
+  addEventFrom = document.querySelector("#time-input-from");
+  addEventTo = document.querySelector("#time-input-to");
+  addEventDetails = document.querySelector("#event-details");
+  addEventSubmit = document.querySelector(".add-event-btn");
+
+
 
   // ? check source data 
-  console.log(  'variables:  ' + calendar + ' ' + date  + ' ' + daysContainer + ' ' + prev  + ' ' + next  + ' ' +todayBtn  + ' ' + gotoBtn  + ' ' + dateInput);
+  console.log(  'variables:  calendar: ' + calendar.classList + ' date: ' + date.classList  + ' daysContainer: ' + daysContainer.classList + ' prev: ' + prev.classList  + ' next: ' + next.classList  + ' todayBtn: ' +todayBtn.classList  + ' gotoBtn: ' + gotoBtn.classList  + ' dateInput: ' + dateInput.classList + ' addEventBtn: ' + addEventBtn.classList +  ' addEventCloseBtn: ' + addEventCloseBtn.classList + '  addEventContainer: ' + addEventWrapper.classList);
+
+// ? initialise data
 
 let today = new Date();
 let activeDay;
@@ -48,6 +55,52 @@ const months = [
     'December'
 ];
 
+// ? default events array
+const eventsArr = 
+[
+  {
+    day: 01,
+    month: 05,
+    year: 2023,
+    events:
+    [
+      {
+        title: "Put cat out",
+        from: "9:50", 
+        to: "10:00", 
+        details:"make sure Suky goes out as well"
+      },
+      {
+        title: "Load dishwasher",
+        from: "10:00", 
+        to: "10:10", 
+        details:"re-salt the reservoir"
+      }
+    ]
+  },
+  {
+    day: 05,
+    month: 05,
+    year: 2023,
+    events:
+    [
+      {
+        title: "Put cat out",
+        from: "9:50", 
+        to: "10:00", 
+        details:"make sure Suky goes out as well"
+      },
+      {
+        title: "Scouts",
+        from: "7:00", 
+        to: "10:10", 
+        details:"take your smile with you"
+      }
+    ]
+  }
+];
+
+
 
 // ?function to add days
 
@@ -63,14 +116,14 @@ function initCalendar(){
        
         console.log( 'first day: ' + firstDay + ' last day: ' + lastDay + ' prev last day: ' + prevLastDay + ' prev days: ' + prevDays + 'last date: ' + lastDate + ' day: ' + day + ' next days: ' + nextDays);
 
-    // ? update date at top of calendar
+    // update date at top of calendar
     // console.log(date +' L58');
     date.innerHTML = months[month] + ' ' + year;
    
 
     let days = '';
 
-    // ? prev months days  
+    // prev months days  
     if(day == 0){
       let sunday = 6;
       for (let x = sunday; x > 0; x--) {
@@ -82,20 +135,49 @@ function initCalendar(){
     }
     // console.log( 'days L70: ' + days);
 
-    // ? current month days
+    // current month days
     for(let i=1;i<=lastDate; i++){
+
+      // check if event present on current date
+      let event = false;
+      eventsArr.forEach((eventObj) =>{
+        if(
+          eventObj.day === i &&
+          eventObj.month === month + 1 &&
+          eventObj.year === year 
+        ){
+          // if event is found
+          event = true;
+        }
+      });
+
       //if day is today add class 'today'
       if( i == new Date().getDate() && 
           year == new Date().getFullYear() && 
           month == new Date().getMonth()){
-            days += `<div class='day today'>${i}</div>`;
+          
+        //if event found also add event classes today and active
+        //
+        if(event){
+          days += `<div class='day active today event'>${i}</div>`;
+          console.log("Event found on: " + i);
+          } else {
+            days += `<div class='day today active'>${i}</div>`;
+            //console.log("Event not found on: " + i);
+          }
       }
-      // ? add remaining days this month
+      // add remaining days this month
       else{
-        days += `<div class='day'>${i}</div>`;
+        if(event){
+          days += `<div class='day event'>${i}</div>`;
+          console.log("Event found on: " + i);
+          } else {
+            days += `<div class='day'>${i}</div>`;
+            //console.log("Event not found on: " + i);
+          }
       }
     }
-          // ? add next month days
+          // add next month days
       if(nextDays < 7){
         for (let j=1; j < nextDays +1 ; j++){
           days += `<div class='day next-day'>${j}</div>`;
@@ -103,6 +185,8 @@ function initCalendar(){
       }
    // console.log( 'days L101: ' + days);
     daysContainer.innerHTML =  days;
+    //add listener to created days
+    addListener();
 }
 
 initCalendar();
@@ -110,7 +194,7 @@ initCalendar();
 
 // ! button functionality
 
-// ? last month
+// last month
 function prevMonth(){
   month--;
   if(month < 0){
@@ -120,7 +204,7 @@ function prevMonth(){
   initCalendar();
 }
 
-// ? next month
+// next month
 
 function nextMonth(){
   month++;
@@ -131,19 +215,20 @@ function nextMonth(){
   initCalendar();
 }
 
-// ? add eventlistener on prev and next
+// add eventlistener on prev and next
 prev.addEventListener('click', prevMonth);
 next.addEventListener('click', nextMonth);
 
 
-// ? add goto date and goto today functionality
+// add goto date and goto today functionality
 
 todayBtn.addEventListener('click', () => {
-  console.log('today input event listener activated L137');
+  console.log('today input event listener activated L137 classes: ' + todayBtn.classList);
   today = new Date();
   month = today.getMonth();
   year = today.getFullYear();
   initCalendar();
+  return;
 });
 
   dateInput.addEventListener("input", (e) => {
@@ -167,23 +252,156 @@ todayBtn.addEventListener('click', () => {
 });
 
 gotoBtn.addEventListener('click', gotoDate);
-//   console.log('goto button event listener activated L166');
-
-gotoBtn.addEventListener('click',  );
-//   console.log('goto button event listener activated L166');
+//   console.log('goto button event listener activated L172');
 
 
 function gotoDate(){
   const dateArr = dateInput.value.split("/");
   console.log(dateArr);
+  // some data validation
   if(dateArr.length == 2){
-    if(dateArr[0] >0 && dateArr[0] < 13 && dateArr[1].length == 4){
+    if(dateArr[0] >0 && dateArr[0] < 13 && dateArr[1].length === 4){
       month = dateArr[0] - 1;
       year = dateArr[1];
       initCalendar();
       return;
     }
   }
+  // for an invalid date
   alert("invalid date");
 }
 
+// !Manage Events button functionallity
+
+addEventBtn.addEventListener('click', () =>{
+  //console.log(' addEventBtn clicked' + addEventWrapper.classList);
+  addEventWrapper.classList.add('show');
+  //console.log(' addEventWrapper: ' + ' ' +addEventWrapper.classList);
+});
+
+addEventCloseBtn.addEventListener('click', () => {
+  //console.log(' addEventCloseBtn clicked' + addEventWrapper.classList);
+  addEventWrapper.classList.remove('show');
+  //console.log(' addEventCloseBtn: ' + ' ' +addEventWrapper.classList);
+});
+
+document.addEventListener('click', (e) => {
+  if(e.target !== addEventBtn && !addEventWrapper.contains(e.target)){
+    //console.log(' outside area clicked and addEventWrapper classList: ' + addEventWrapper.classList);
+  addEventWrapper.classList.remove('show');}
+  //console.log(' outside area clicked and addEventWrapper classList: ' + ' ' +addEventWrapper.classList);
+});
+
+
+// ! Event validation
+
+// only allow 50 chr in title field
+
+addEventTitle.addEventListener('input', (e) =>{
+  addEventTitle.value = addEventTitle.value.slice(0, 50);
+});
+
+// Time format for From & To times
+
+addEventFrom.addEventListener('input', (e) => {
+  // remove anything but numbers
+  addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/);
+  if(addEventFrom.value.length === 2){
+    // if 2 numbers entered add :
+    addEventFrom.value += ":";
+  }
+  if(addEventFrom.value.length > 5){
+    // dont let users add more than 5 char
+    addEventFrom.value = addEventFrom.value.slice(0, 5);
+  }
+});
+
+addEventTo.addEventListener('input', (e) => {
+  // remove anything but numbers
+  addEventTo.value = addEventTo.value.replace(/[^0-9:]/);
+  if(addEventFrom.value.length === 2){
+    // if 2 numbers entered add :
+    addEventTo.value += ":";
+  }
+  if(addEventFrom.value.length > 5){
+    // dont let users add more than 5 char
+    addEventTo.value = addEventTo.value.slice(0, 5);
+  }
+});
+
+// ! add event listener for days after render
+
+function addListener(){
+  const days = document.querySelectorAll(".day");
+  days.forEach((day) => {
+    day.addEventListener('click', (e) =>{
+      // set current day as active day
+      activeDay = Number(e.target.innerHTML);
+      console.log("Active day: " + activeDay);
+
+      // call active day after click
+      getActiveDay(e.target.innerHTML);
+
+      //remove active from already active day
+      days.forEach((day) =>{
+        day.classList.remove("active");
+        // console.log("L344 addListener() classlist for day selected: " +  day.classList);
+      });
+          // if prev month day clicked go to previous month and add active
+          if(e.target.classList.contains("prev-day")){
+        
+            prevMonth();
+
+            setTimeout(() => {
+              //select all days of that month
+              const days = document.querySelectorAll(".day");
+        
+              //after going to the prev month add active to the clicked day
+              days.forEach((day) =>{
+                if(
+                  !day.classList.contains("prev-day") &&
+                  day.innerHTML === e.target.innerHTML){
+                  day.classList.add("active");
+                  console.log("active day L356: " + day.classList + '  ' + day.innerHTML);
+                }
+              });
+            }, 100);
+          }else 
+          if(e.target.classList.contains("next-day")){
+        
+            nextMonth();
+
+            setTimeout(() => {
+              //select all days of that month
+              const days = document.querySelectorAll(".day");
+        
+              //after going to the prev month add active to the clicked day
+              days.forEach((day) =>{
+                if(
+                  !day.classList.contains("next-day") &&
+                  day.innerHTML === e.target.innerHTML){
+                  day.classList.add("active");
+                  console.log("active day L356: " + day.classList + '  ' + day.innerHTML);
+                }
+              });
+            }, 100);
+          }else
+          // remaining current month days
+          e.target.classList.add("active");
+        
+    });
+  });
+}
+
+
+//show the active day events and date at top
+
+function getActiveDay(date){
+  console.log(date);
+  const day = new Date(year,month, date);
+  const dayName = day.toString().split(" ")[0];
+  eventDay.innerHTML = dayName;
+  eventDate.innerHTML = date +" " + months[month] + " " + year;
+  console.log(" eventDay & Date: " + day + " " + dayName);
+}
+ 

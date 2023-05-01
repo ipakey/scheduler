@@ -48,19 +48,19 @@
                     <div class="days"></div>
                     <!--!we will add the days with js  -->
                     <div class="goto-today">
-                        <div class="goto">
+                        <div class="goto event-btn">
                             <input type="text" class="date-input" placeholder="MM/YYYY" />
-                            <button class=" event-btn goto-btn">go
+                            <button class=" goto-btn event-btn">go
                             </button>
                         </div>
-                        <button class="event-btn today-btn">Go to today</button>
+                        <button class="event-btn today-btn">Goto today</button>
                     </div>
                 </div>
             </div>
             <div class="right">
                 <div class="today-date">
-                    <div class="event-day">Wed</div>
-                    <div class="event-date">29 March 2023</div>
+                    <div class="event-day"></div>
+                    <div class="event-date"></div>
                 </div>
                 <div class="events">
                 <!--! We will add events through js script -->
@@ -68,11 +68,13 @@
                 <div class="add-event-wrapper">
                     <div class="add-event-header">
                         <div class="title">Add Event</div>
-                        <img class="arrow close" src="./icons/taskGoldClock.png" alt="closetask arrow">
+                        <img class="arrow" src="./icons/taskGoldClock.png" alt="event Icon arrow">
                     </div>
                     <div class="add-event-body">
                         <div class="add-event-input">            
-                            <input type="text" class="event-name" placeholder="Event Name" required>
+                            <input type="text" 
+                            id="event-name"
+                            class="event-name" placeholder="Event Name" required>
                         </div>
                         <div class="halfway">
                             <div class="add-event-input">
@@ -88,17 +90,23 @@
                             </div>
                         </div>
                         <div class="add-event-input">
-                            <input type="text" class="event-details" placeholder="Event Details">
+                            <input type="text" 
+                            id="event-details" class="event-details" placeholder="Event Details">
                         </div>
 
                     </div>
                     <div class="add-event-footer">
-                        <button class="event-btn add-btn">Add event</button>
-                        <button class="event-btn edit-btn">Edit event</button>
-                        <button class="event-btn close-btn">Close event</button>
+                        <button class="add-event-btn event-btn add-btn ">Add event</button>
+                        <!-- <button class="edit-event-btn event-btn edit-btn ">Edit event</button> -->
+                        <button class="close-event-btn event-btn close-btn ">Close event</button>
                     </div>
                 </div>  
-                <button class="event-btn" id="event-form" tooltip{Manage your events}="">Manage Events</button>            
+                <div class="menu-buttons">
+                    <button class="manage-events-btn event-btn " id="event-form">Manage  Events
+                    </button>
+                </div> 
+                </div>
+                       
             </div>
         </div>
     </main>
