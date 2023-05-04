@@ -156,6 +156,10 @@ function initCalendar(){
           year == new Date().getFullYear() && 
           month == new Date().getMonth()){
           
+        activeDay = i;
+        getActiveDay(i);
+        updateEvents(i);
+
         //if event found also add event classes today and active
         //
         if(event){
@@ -341,6 +345,7 @@ function addListener(){
 
       // call active day after click
       getActiveDay(e.target.innerHTML);
+      updateEvents(e.target.innerHTML);
 
       //remove active from already active day
       days.forEach((day) =>{
@@ -402,6 +407,44 @@ function getActiveDay(date){
   const dayName = day.toString().split(" ")[0];
   eventDay.innerHTML = dayName;
   eventDate.innerHTML = date +" " + months[month] + " " + year;
-  console.log(" eventDay & Date: " + day + " " + dayName);
-}
  
+}
+
+//? function to show events of the day
+
+function updateEvents(date){
+  console.log('F updateEvents L410 input date:  ' + date);
+  let events = "";
+  eventsArr.forEach((event)=> {
+    // get events for active day only
+    if(
+      date == event.day &&
+      month + 1 == event.month &&
+      year == event.year
+      ) {
+        //show event on document
+        event.events.forEach((event) =>{
+          events += `
+        <div class="event">
+          <div class="title">
+              <img class="list-icon
+              " src="./icons/cogs.png" alt="" srcset="">
+              <h3 class="event-title">${event.title}
+              <h3 class="event-time">${event.from} - ${event.to}</h3>
+          </div>
+          <div class="event-details">
+              <p>${event.details}</p>
+          </div>
+        </div>`;
+      console.log(events + "F updateEvents L434 after event rendered to html");
+        });
+      }
+      });
+        //if nothing found
+        if((events === "")){
+          events = 
+          ` <div class="no-event">
+          <h3>No Events</h3></div>`;
+        }
+        eventsContainer.innerHTML = events;
+}
